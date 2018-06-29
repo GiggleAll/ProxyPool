@@ -4,8 +4,8 @@
 方法要求返回 ip:port 形式的代理。
 """
 
-from .errors import RewriteSpiderError
-from .utils import get_page
+from proxypool.errors import RewriteSpiderError
+from proxypool.utils import get_page
 import time
 
 
@@ -52,18 +52,18 @@ class SpiderMeta(type):
         return type.__new__(cls, *args, **kwargs)
 
 
-class Proxy360Spider(metaclass=SpiderMeta):
-    start_url = 'http://www.proxy360.cn/default.aspx'
-
-    def gets(self, page_total=None):
-        ans = []
-        soup = get_page(self.start_url)
-        for proxy in soup.find_all('div', {'class': 'proxylistitem'}):
-            item = proxy.find_all('span', {"class": "tbBottomLine"})
-            ip = item[0].get_text().replace('\r\n', '').replace(' ', '')
-            port = item[1].get_text().replace('\r\n', '').replace(' ', '')
-            ans.append(':'.join([ip, port]))
-        return ans
+# class Proxy360Spider(metaclass=SpiderMeta):
+#     start_url = 'http://www.proxy360.cn/default.aspx'
+#
+#     def gets(self, page_total=None):
+#         ans = []
+#         soup = get_page(self.start_url)
+#         for proxy in soup.find_all('div', {'class': 'proxylistitem'}):
+#             item = proxy.find_all('span', {"class": "tbBottomLine"})
+#             ip = item[0].get_text().replace('\r\n', '').replace(' ', '')
+#             port = item[1].get_text().replace('\r\n', '').replace(' ', '')
+#             ans.append(':'.join([ip, port]))
+#         return ans
 
 
 class Daili666Spider(metaclass=SpiderMeta):
@@ -129,3 +129,6 @@ class XiciSpider(metaclass=SpiderMeta):
         return ans
 
 # 请在此处继续扩展你的爬虫类。
+if __name__ == '__main__':
+    res = XiciSpider().gets()
+    print(res)
