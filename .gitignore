@@ -1,5 +1,12 @@
-*.vscode
+*.sw?
 *.pyc
-*.db
+
+local*.cfg
+
+.coverage
+.tox/
+build/
+htmlcov/
+python_bitcoinlib.egg-info/
+dist/
 .idea
-venv
